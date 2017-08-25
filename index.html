@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/vendor/jquery-3.2.1.min.js"></script>
+    <script src="js/modules/main.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="calc">
+        <div class="calc__header">
+            <button class="button js-button_add">Добавить строчку</button>
+        </div>
+        <div class="calc__field">
+            <div class="calc__field-title">
+                <b>Сумма, р.</b>
+            </div>
+            <div class="calc__list">
+
+                <div class="calc__item">
+                    <label>
+                        <span class="calc__value"></span>
+                        <input type="text" class="calc__input">
+                        <button class="button js-button_save">Save</button>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+        <div class="calc__footer">
+            <span>Итого:</span>
+            <b class="calc__amount">0</b>
+        </div>
+    </div>
+</div>
+</body>
+</html>

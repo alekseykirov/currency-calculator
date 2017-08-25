@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    width: 100%;
+    height: 100%;
+}
+
+.button {
+    padding: 2px;
+}
+
+.calc {
+    text-align: right;
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+}
+
+.calc__header {
+    margin-bottom: 5px;
+}
+
+.calc__field {
+    margin-bottom: 5px;
+}
+
+.calc__field-title {
+    margin-bottom: 14px;
+}
+
+.calc__item {
+    margin-bottom: 7px;
+}
+
+.calc__input {
+    width: 80px;
+}
