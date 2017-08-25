@@ -14,7 +14,6 @@ jQuery(document).ready(function () {
     }
 
 // add item
-
     var buttonAdd = $('.js-button_add');
     buttonAdd.on('click', function () {
         var check = jQuery('.active');
@@ -38,7 +37,6 @@ jQuery(document).ready(function () {
     });
 
 //save value
-
     jQuery('.calc__list').on('click', '.js-button_save', function () {
         var inputValue = jQuery(this).siblings('.calc__input').val();
 
@@ -59,7 +57,6 @@ jQuery(document).ready(function () {
     });
 
 //edit value
-
     jQuery('.calc__list').on('click', '.calc__value', function () {
         var beforeValue = jQuery(this).text();
         jQuery(this).parent().parent().removeClass('done');
@@ -76,7 +73,6 @@ jQuery(document).ready(function () {
     });
 
 //delete value
-
     jQuery('.calc__list').on('click', '.js-calc__delete', function () {
         var parentItem = jQuery(this).parent();
         parentItem.parent().remove();
@@ -88,5 +84,6 @@ jQuery(document).ready(function () {
 
         jQuery('.calc__amount').empty().append(+result.toFixed(10));
     })
+
 
 });
