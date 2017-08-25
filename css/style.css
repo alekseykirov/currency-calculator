@@ -35,6 +35,14 @@
     margin-bottom: 7px;
 }
 
+.calc__value {
+    display: inline-block;
+}
+
+/*.calc__value:hover .calc__item{*/
+    /*background: #a6bbfe;*/
+/*}*/
+
 .calc__input {
     width: 80px;
 }
