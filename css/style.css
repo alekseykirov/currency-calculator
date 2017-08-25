@@ -8,6 +8,25 @@
     height: 100%;
 }
 
+.button {
+
+}
+
+.button_save {
+    position: absolute;
+}
+
+.delete {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: -68px;
+    z-index: 444;
+    text-decoration: none;
+    color: #0000ff;
+    border-bottom: 1px dashed #0000ff;
+}
+
 .calc {
     text-align: right;
     display: block;
@@ -27,22 +46,45 @@
     margin-bottom: 14px;
 }
 
-.delete {
-    position: absolute;
-    /*display: none;*/
-}
-
 .calc__item {
-    margin-bottom: 7px;
+
     position: relative;
+    display: inline-block;
 }
 
-.button_save {
+.done {
+    padding: 5px 0 5px 36px;
+}
+
+.done:hover {
+    background: #e5f8ff;
+}
+
+.done:after {
+    content: '';
+    display: block;
     position: absolute;
+    top: 0;
+    right: -84px;
+    width: 84px;
+    height: 28px;
+}
+
+.done:hover:after {
+    background: #e5f8ff;
+}
+
+.done:hover .delete{
+    display: block;
 }
 
 .calc__value {
-    display: inline-block;
+    display: block;
+    cursor: pointer;
+}
+
+.calc__value:hover ~ .delete{
+    display: block;
 }
 
 .calc__input {
