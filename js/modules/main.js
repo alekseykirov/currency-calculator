@@ -34,6 +34,18 @@ jQuery(document).ready(function () {
         check.parent().parent().addClass('done');
         check.removeClass('active');
         jQuery('.calc__list').append(getCalkItemTeplate())
+
+
+
+        var heightWrap = jQuery('.wrapper').height();
+        var heightWindows = jQuery(window).height();
+
+
+        if(heightWrap >= heightWindows) {
+            jQuery('.calc__footer').addClass('fixed')
+        }
+
+
     });
 
 //save value
@@ -83,7 +95,9 @@ jQuery(document).ready(function () {
         var result = +totalValue - +delVal;
 
         jQuery('.calc__amount').empty().append(+result.toFixed(10));
-    })
+    });
+
+
 
 
 });

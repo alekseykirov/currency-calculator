@@ -16,6 +16,12 @@ body {
 
 }
 
+.wrapper:after {
+    content: '';
+    display: block;
+    height: 35px;
+}
+
 .button_save {
     position: absolute;
 }
@@ -97,5 +103,12 @@ body {
 
 .calc__footer {
     margin-top: 16px;
+}
 
+.fixed {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    border: 1px solid #000;
+    padding: 10px;
 }
