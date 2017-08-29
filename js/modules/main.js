@@ -1,103 +1,106 @@
-jQuery(document).ready(function () {
+CalcForm = function (options) {
+    this.form = options.form;
+};
 
-    function getCalkItemTeplate() {
-        return '<div class="calc__container">' +
-            '<div class="calc__item">' +
-            '<label>' +
-            '<span class="calc__value"></span>' +
-            '<input type="number" class="calc__input active">' +
-            '<button class="button button_save js-button_save">Сохранить</button>' +
-            '<a href="#" class="delete js-calc__delete">Удалить</a>' +
-            '</label>' +
-            '</div>' +
-            '</div>';
-    }
+CalcForm.prototype.init = function () {
+    var self = this;
 
-// add item
-    var buttonAdd = $('.js-button_add');
-    buttonAdd.on('click', function () {
+    self.events();
+};
+
+//EVENTS
+CalcForm.prototype.events = function () {
+    this.addItem();
+    this.saveValue();
+    this.editValue();
+    this.deleteValue();
+};
+
+CalcForm.prototype.addItem = function () {
+    this.form.find('.js-button_add').on('click', function () {
         var check = jQuery('.active');
-
         if (check.val()) {
             check.siblings('.calc__value').append(check.val());
-            var total = jQuery('.js-calc__amount');
-            var totalValue = total.text();
-            var result = +totalValue + +(check.val());
-            total.empty().append(+result.toFixed(10));
+
+            var checkValue = check.val();
+            var result = improveValue(checkValue);
+
+            jQuery('.js-calc__amount').empty().append(+result.toFixed(10));
         } else {
             check.siblings('.calc__value').append(0)
         }
-
         check.hide();
         check.siblings('.button').hide();
-
         check.parent().parent().addClass('done');
         check.removeClass('active');
         jQuery('.calc__list').append(getCalkItemTeplate())
-
-
-
-        var heightWrap = jQuery('.wrapper').height();
-        var heightWindows = jQuery(window).height();
-
-
-        if(heightWrap >= heightWindows) {
-            jQuery('.calc__footer').addClass('fixed')
-        }
-
-
     });
+};
 
-//save value
-    jQuery('.calc__list').on('click', '.js-button_save', function () {
+CalcForm.prototype.saveValue = function () {
+    this.form.find('.calc__list').on('click', '.js-button_save', function () {
         var inputValue = jQuery(this).siblings('.calc__input').val();
-
         jQuery(this).siblings('.calc__value').append(inputValue);
         jQuery(this).siblings('.calc__input').removeClass('active').hide();
         jQuery(this).hide();
+        if (inputValue) {
 
-        if(inputValue) {
-            var total = jQuery('.js-calc__amount');
-            var totalValue = total.text();
-            var result = +totalValue + +inputValue;
+            var result = improveValue(inputValue);
 
             jQuery(this).parent().parent().addClass('done');
-            total.empty().append(+result.toFixed(10));
+            jQuery('.js-calc__amount').empty().append(+result.toFixed(10));
         } else {
             jQuery(this).siblings('.calc__value').append(0);
         }
     });
+};
 
-//edit value
-    jQuery('.calc__list').on('click', '.calc__value', function () {
+CalcForm.prototype.editValue = function () {
+    this.form.find('.calc__list').on('click', '.calc__value', function () {
         var beforeValue = jQuery(this).text();
         jQuery(this).parent().parent().removeClass('done');
         jQuery(this).empty();
         jQuery(this).siblings('.calc__input').addClass('active').show();
         jQuery(this).siblings('.js-button_save').show();
 
-        var total = jQuery('.js-calc__amount');
-        var totalValue = total.text();
-        var result = +totalValue - +beforeValue;
+        var result = lowerValue(beforeValue);
 
         jQuery('.calc__amount').empty().append(+result.toFixed(10));
-
     });
+};
 
-//delete value
-    jQuery('.calc__list').on('click', '.js-calc__delete', function () {
+CalcForm.prototype.deleteValue = function () {
+    this.form.find('.calc__list').on('click', '.js-calc__delete', function () {
         var parentItem = jQuery(this).parent();
         parentItem.parent().remove();
-
         var delVal = parentItem.find('.calc__value').text();
-        var total = jQuery('.js-calc__amount');
-        var totalValue = total.text();
-        var result = +totalValue - +delVal;
+
+        var result = lowerValue(delVal);
 
         jQuery('.calc__amount').empty().append(+result.toFixed(10));
     });
+};
 
+//METHODS
+CalcForm.prototype.getCalkItemTeplate = function () {
+    return '<div class="calc__container">' +
+            '<div class="calc__item">' +
+                '<label>' +
+                    '<span class="calc__value"></span>' +
+                    '<input type="number" class="calc__input active">' +
+                    '<button class="button button_save js-button_save">Сохранить</button>' +
+                    '<a href="#" class="delete js-calc__delete">Удалить</a>' +
+                '</label>' +
+            '</div>' +
+        '</div>';
+};
 
+CalcForm.prototype.improveValue = function (value) {
+    var totalValue = jQuery('.js-calc__amount').text();
+    return +totalValue + +value;
+};
 
-
-});
+CalcForm.prototype.lowerValue = function (value) {
+    var totalValue = jQuery('.js-calc__amount').text();
+    return +totalValue - +value;
+};
