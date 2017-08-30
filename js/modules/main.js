@@ -10,32 +10,46 @@ CalcForm.prototype.init = function () {
 
 //EVENTS
 CalcForm.prototype.events = function () {
-    this.addItem();
-    this.saveValue();
-    this.editValue();
-    this.deleteValue();
+    this.bindClickAddBtn();
+    this.bindClickSaveBtn();
+    this.bindClickDeleteBtn();
+
+
 };
 
-CalcForm.prototype.addItem = function () {
-    this.form.find('.js-button_add').on('click', function () {
-        var check = jQuery('.active');
-        if (check.val()) {
-            check.siblings('.calc__value').append(check.val());
-
-            var checkValue = check.val();
-            var result = improveValue(checkValue);
-
-            jQuery('.js-calc__amount').empty().append(+result.toFixed(10));
-        } else {
-            check.siblings('.calc__value').append(0)
-        }
-        check.hide();
-        check.siblings('.button').hide();
-        check.parent().parent().addClass('done');
-        check.removeClass('active');
-        jQuery('.calc__list').append(getCalkItemTeplate())
-    });
+CalcForm.prototype.bindClickAddBtn = function () {
+    this.form
 };
+
+CalcForm.prototype.bindClickSaveBtn = function () {
+
+};
+
+CalcForm.prototype.bindClickDeleteBtn = function () {
+
+};
+
+
+
+
+
+
+// var check = jQuery('.active');
+// if (check.val()) {
+//     check.siblings('.calc__value').append(check.val());
+//     var checkValue = check.val();
+//     var result = self.improveValue(checkValue);
+//     jQuery('.js-calc__amount').empty().append(+result.toFixed(10));
+// } else {
+//     check.siblings('.calc__value').append(0)
+// };
+
+
+// check.hide();
+// check.siblings('.button').hide();
+// check.parent().parent().addClass('done');
+// check.removeClass('active');
+//
 
 CalcForm.prototype.saveValue = function () {
     this.form.find('.calc__list').on('click', '.js-button_save', function () {
@@ -82,17 +96,21 @@ CalcForm.prototype.deleteValue = function () {
 };
 
 //METHODS
-CalcForm.prototype.getCalkItemTeplate = function () {
-    return '<div class="calc__container">' +
+CalcForm.prototype.addHtmlItem = function () {
+    function getItemTemplate() {
+        return '<div class="calc__container">' +
             '<div class="calc__item">' +
-                '<label>' +
-                    '<span class="calc__value"></span>' +
-                    '<input type="number" class="calc__input active">' +
-                    '<button class="button button_save js-button_save">Сохранить</button>' +
-                    '<a href="#" class="delete js-calc__delete">Удалить</a>' +
-                '</label>' +
+            '<label>' +
+            '<span class="calc__value"></span>' +
+            '<input type="number" class="calc__input active">' +
+            '<button class="button button_save js-button_save">Сохранить</button>' +
+            '<a href="#" class="delete js-calc__delete">Удалить</a>' +
+            '</label>' +
             '</div>' +
-        '</div>';
+            '</div>';
+    }
+
+    jQuery('.calc__list').append(getItemTemplate());
 };
 
 CalcForm.prototype.improveValue = function (value) {
