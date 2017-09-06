@@ -5,12 +5,12 @@
     <title>Calculator</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/vendor/jquery-3.2.1.min.js"></script>
-    <script src="js/controllers/controllers.js"></script>
+    <script src="js/controllers/MainController.js"></script>
     <script src="js/modules/main.js"></script>
 
     <script>
         jQuery(function () {
-            new Controllers();
+            new MainController();
         });
     </script>
 
@@ -19,13 +19,17 @@
 <div class="wrapper">
     <div class="calc">
         <div class="calc__header">
-            <button class="button js-button_add">Добавить строчку</button>
+            <button class="button js-button_add">
+                Добавить строчку
+            </button>
         </div>
         <div class="calc__field">
             <div class="calc__field-title">
                 <b>Сумма, р.</b>
             </div>
-            <div class="calc__list"></div>
+            <div class="calc__list js-calcForm">
+                <!--form-->
+            </div>
         </div>
         <div class="calc__footer ">
             <span>Итого:</span>
