@@ -56,10 +56,6 @@ body {
     margin-bottom: 14px;
 }
 
-.calc__container {
-    margin-bottom: 15px;
-}
-
 .calc__item {
     position: relative;
     display: inline-block;

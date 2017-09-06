@@ -1,5 +1,6 @@
 CalcForm = function (options) {
     this.form = options.form;
+    this.sum = 0;
 };
 
 CalcForm.prototype.init = function () {
@@ -34,8 +35,11 @@ CalcForm.prototype.bindClickSaveBtn = function () {
         if (inputValue) {
             var result = self.improveValue(inputValue);
             jQuery(this).parent().parent().addClass('done');
-            jQuery('.js-calc__amount').empty().append(+result.toFixed(10));
+
+            self.sum = result;
+            self.writeValue();
         } else {
+            jQuery(this).parent().parent().addClass('done');
             jQuery(this).siblings('.calc__value').append(0);
         }
     });
@@ -48,7 +52,9 @@ CalcForm.prototype.bindClickDeleteBtn = function () {
         parentItem.parent().remove();
         var delVal = parentItem.find('.calc__value').text();
         var result = self.lowerValue(delVal);
-        jQuery('.calc__amount').empty().append(+result.toFixed(10));
+
+        self.sum = result;
+        self.writeValue();
     });
 };
 
@@ -60,10 +66,10 @@ CalcForm.prototype.bindClickValue = function () {
         jQuery(this).empty();
         jQuery(this).siblings('.calc__input').addClass('active').show();
         jQuery(this).siblings('.js-button_save').show();
-
         var result = self.lowerValue(beforeValue);
 
-        jQuery('.calc__amount').empty().append(+result.toFixed(10));
+        self.sum = result;
+        self.writeValue();
     });
 };
 
@@ -101,11 +107,16 @@ CalcForm.prototype.checkValue = function () {
 };
 
 CalcForm.prototype.improveValue = function (value) {
-    var totalValue = jQuery('.js-calc__amount').text();
-    return +totalValue + +value;
+    var self = this;
+    return +self.sum + +value
 };
 
 CalcForm.prototype.lowerValue = function (value) {
-    var totalValue = jQuery('.js-calc__amount').text();
-    return +totalValue - +value;
+    var self = this;
+    return +self.sum - +value
+};
+
+CalcForm.prototype.writeValue = function () {
+    var self = this;
+    jQuery('.js-calc__amount').empty().append(self.sum);
 };
