@@ -21,6 +21,7 @@ CalcForm.prototype.bindClickAddBtn = function () {
     var self = this;
     jQuery('.js-button_add').on('click', function () {
         self.checkValue();
+        self.makeItemUnEditable();
         jQuery('.js-calcForm').append(self.getItemTemplate());
     })
 };
@@ -99,9 +100,12 @@ CalcForm.prototype.checkValue = function () {
     } else {
         check.siblings('.calc__value').append(0)
     }
+};
 
-    check.hide();
-    check.siblings('.button').hide();
+CalcForm.prototype.makeItemUnEditable = function () {
+    var check = this.form.find('.active');
+
+    check.hide().siblings('.button').hide();
     check.parent().parent().addClass('done');
     check.removeClass('active');
 };
