@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Calculator</title>
@@ -7,13 +7,11 @@
     <script src="js/vendor/jquery-3.2.1.min.js"></script>
     <script src="js/controllers/MainController.js"></script>
     <script src="js/modules/main.js"></script>
-
     <script>
         jQuery(function () {
             new MainController();
         });
     </script>
-
 </head>
 <body>
 <div class="wrapper">
@@ -27,9 +25,7 @@
             <div class="calc__field-title">
                 <b>Сумма, р.</b>
             </div>
-            <div class="calc__list js-calcForm">
-                <!--form-->
-            </div>
+            <div class="calc__list js-calcForm"></div>
         </div>
         <div class="calc__footer ">
             <span>Итого:</span>

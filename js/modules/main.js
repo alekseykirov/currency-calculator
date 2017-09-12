@@ -1,4 +1,4 @@
-CalcForm = function (options) {
+CalcForm = function (options)  {
     this.form = options.form;
     this.sum = 0;
 };
@@ -49,9 +49,10 @@ CalcForm.prototype.bindClickSaveBtn = function () {
 CalcForm.prototype.bindClickDeleteBtn = function () {
     var self = this;
     this.form.on('click', '.js-calc__delete', function () {
-        var parentItem = jQuery(this).parent();
-        parentItem.parent().remove();
-        var delVal = parentItem.find('.calc__value').text();
+        var parentItem = jQuery(this);
+
+        var delVal = parentItem.siblings('.calc__value').text();
+        parentItem.closest('.calc__container').remove();
         var result = self.lowerValue(delVal);
 
         self.sum = result;
