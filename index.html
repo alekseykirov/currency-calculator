@@ -6,8 +6,13 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/vendor/jquery-3.2.1.min.js"></script>
     <script src="js/controllers/FormCalcCntl.js"></script>
-    <script src="js/models/FormCalcModels.js"></script>
+    <script src="js/models/FormCalcModel.js"></script>
     <script src="js/views/FormCalcView.js"></script>
+    <script>
+        jQuery(function () {
+            new FormCalcCntl();
+        });
+    </script>
 </head>
 <body>
 <div class="wrapper">

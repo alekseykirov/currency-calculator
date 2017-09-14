@@ -1,24 +1,48 @@
-MainController = function() {
+var FormCalcCntl = function () {
     this.init();
 };
 
-MainController.prototype.init = function() {
+FormCalcCntl.prototype.init = function () {
     var self = this;
-    self.initCalcForm();
+    window.formCalcModel = new FormCalcModel();
+    window.formCalcView = new FormCalcView({
+        model: window.formCalcModel,
+        form: jQuery('.js-calcForm')
+    });
     self.events();
 };
 
-//EVENTS
 
-MainController.prototype.events = function() {
+/* Events */
+
+FormCalcCntl.prototype.events = function () {
+    var self = this;
+    self.bindClickAddBtn();
+    self.bindClickSaveBtn();
+    self.bindClickDeleteBtn();
+    self.bindClickValue();
+};
+
+FormCalcCntl.prototype.bindClickAddBtn = function () {
+    jQuery('.js-button_add').on('click', function () {
+        window.formCalcView.addTemplate();
+    })
+};
+
+FormCalcCntl.prototype.bindClickSaveBtn = function () {
     
 };
 
-//METHODS
+FormCalcCntl.prototype.bindClickDeleteBtn = function () {
 
-MainController.prototype.initCalcForm = function() {
-    this.calcForm = new CalcForm({
-        form: jQuery('.js-calcForm')
-    });
-    this.calcForm.init();
 };
+
+
+FormCalcCntl.prototype.bindClickValue = function () {
+    this.form.on('click', '.calc__value', function () {
+        console.log('press event')
+    });
+};
+
+
+
