@@ -87,6 +87,10 @@ body {
     display: block;
 }
 
+.calc__list {
+    list-style: none;
+}
+
 .calc__value {
     display: block;
     cursor: pointer;

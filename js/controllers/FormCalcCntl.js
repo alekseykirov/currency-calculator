@@ -6,12 +6,10 @@ FormCalcCntl.prototype.init = function () {
     var self = this;
     window.formCalcModel = new FormCalcModel();
     window.formCalcView = new FormCalcView({
-        model: window.formCalcModel,
-        form: jQuery('.js-calcForm')
+        model: window.formCalcModel
     });
     self.events();
 };
-
 
 /* Events */
 
@@ -20,7 +18,7 @@ FormCalcCntl.prototype.events = function () {
     self.bindClickAddBtn();
     self.bindClickSaveBtn();
     self.bindClickDeleteBtn();
-    self.bindClickValue();
+    self.bindClickField();
 };
 
 FormCalcCntl.prototype.bindClickAddBtn = function () {
@@ -30,19 +28,19 @@ FormCalcCntl.prototype.bindClickAddBtn = function () {
 };
 
 FormCalcCntl.prototype.bindClickSaveBtn = function () {
-    
-};
-
-FormCalcCntl.prototype.bindClickDeleteBtn = function () {
-
-};
-
-
-FormCalcCntl.prototype.bindClickValue = function () {
-    this.form.on('click', '.calc__value', function () {
-        console.log('press event')
+    jQuery('.js-calcForm').on('click', '.js-button_save', function () {
+        window.formCalcView.saveField( jQuery(this) );
     });
 };
 
+FormCalcCntl.prototype.bindClickDeleteBtn = function () {
+    jQuery('.js-calcForm').on('click', '.js-calc__delete', function () {
+        window.formCalcView.deleteField( jQuery(this) );
+    });
+};
 
-
+FormCalcCntl.prototype.bindClickField = function () {
+    jQuery('.js-calcForm').on('click', '.calc__value', function () {
+        window.formCalcView.editField( jQuery(this) );
+    });
+};
