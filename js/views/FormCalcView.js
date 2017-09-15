@@ -21,24 +21,43 @@ FormCalcView.prototype.event = function () {
 
 FormCalcView.prototype.addTemplate = function () {
     var self = this;
+
+    // self.editActiveField();
+    // self.makeActiveItemUnEditable();
+
     jQuery('.js-calcForm').append(self.getItemTemplate());
+
 };
 
 FormCalcView.prototype.saveField = function (btn) {
     var self = this;
-    var index = self.getIndex(btn);
 
-    var inputValue = btn.siblings('.calc__input').val();
-    btn.siblings('.calc__input').removeClass('active').hide();
+    var input = jQuery('.js-calcForm').find('input.active'); //ищет активное поле
+    var index = self.getIndex(input); //получает index его родителя
+
+    btn.siblings('.calc__input').removeClass('active').hide(); //удаляет active и скрывает его
     btn.hide();
 
-    if (inputValue) {
+    if (input.val()) {
         btn.parent().parent().addClass('done');
-        btn.siblings('.calc__value').append(inputValue);
-        this.model.addValue(index, inputValue);
+        btn.siblings('.calc__value').append(input.val());
+        this.model.addValue(index, input.val());
     } else {
         btn.parent().parent().addClass('done');
         btn.siblings('.calc__value').append(0);
+        this.model.addValue(index, 0);
+    }
+};
+
+FormCalcView.prototype.editActiveField = function () {
+    var self = this;
+
+    var input = jQuery('.js-calcForm').find('input.active');
+    var index = self.getIndex(input);
+
+    if (input.val()) {
+        this.model.addValue(index, +input.val());
+    } else {
         this.model.addValue(index, 0);
     }
 };
@@ -82,4 +101,12 @@ FormCalcView.prototype.getItemTemplate = function () {
         '</label>' +
         '</div>' +
         '</li>';
+};
+
+FormCalcView.prototype.makeActiveItemUnEditable = function () {
+    var input = jQuery('.js-calcForm').find('input.active');
+
+    input.hide().siblings('.button').hide();
+    input.parent().parent().addClass('done');
+    input.removeClass('active');
 };
