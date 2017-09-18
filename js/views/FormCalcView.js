@@ -21,45 +21,46 @@ FormCalcView.prototype.event = function () {
 
 FormCalcView.prototype.addTemplate = function () {
     var self = this;
-
-    // self.editActiveField();
-    // self.makeActiveItemUnEditable();
-
     jQuery('.js-calcForm').append(self.getItemTemplate());
-
 };
 
 FormCalcView.prototype.saveField = function (btn) {
     var self = this;
-
-    var input = jQuery('.js-calcForm').find('input.active'); //ищет активное поле
-    var index = self.getIndex(input); //получает index его родителя
-
-    btn.siblings('.calc__input').removeClass('active').hide(); //удаляет active и скрывает его
+    var input = self.findActiveField();
+    var index = self.getIndex(input);
+    var value = input.val();
+    btn.siblings('.calc__input').removeClass('active').hide();
     btn.hide();
 
+    self.checkValue(value, index);
     if (input.val()) {
         btn.parent().parent().addClass('done');
         btn.siblings('.calc__value').append(input.val());
-        this.model.addValue(index, input.val());
     } else {
         btn.parent().parent().addClass('done');
         btn.siblings('.calc__value').append(0);
-        this.model.addValue(index, 0);
     }
 };
 
 FormCalcView.prototype.editActiveField = function () {
     var self = this;
-
-    var input = jQuery('.js-calcForm').find('input.active');
+    var input = self.findActiveField();
     var index = self.getIndex(input);
+    var value = input.val();
 
-    if (input.val()) {
-        this.model.addValue(index, +input.val());
+    self.checkValue(value, index);
+};
+
+FormCalcView.prototype.checkValue = function (value, index) {
+    if (value) {
+        this.model.addValue(index, +value);
     } else {
         this.model.addValue(index, 0);
     }
+};
+
+FormCalcView.prototype.findActiveField = function () {
+    return jQuery('.js-calcForm').find('input.active');
 };
 
 FormCalcView.prototype.editField = function (val) {
