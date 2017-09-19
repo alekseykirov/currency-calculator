@@ -5,18 +5,19 @@ var FormCalcModel = function () {
 FormCalcModel.prototype.addValue = function (index, value) {
     var self = this;
     self.sum.splice(index, 1, +value);
-    jQuery(window).trigger('addValue');
+    jQuery(window).trigger('updateForm');
 };
 
 FormCalcModel.prototype.removeValue = function (index) {
     var self = this;
     self.sum.splice(index, 1);
-    jQuery(window).trigger('removeValue');
+    jQuery(window).trigger('updateForm');
 };
 
 FormCalcModel.prototype.editValue = function (index) {
     var self = this;
     self.sum.splice(index, 1, 0);
+    // jQuery(window).trigger('editField');
 };
 
 FormCalcModel.prototype.calcTotal = function () {

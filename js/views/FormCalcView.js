@@ -5,7 +5,7 @@ var FormCalcView = function (options) {
 
 FormCalcView.prototype.init = function () {
     var self = this;
-    // self.render();
+    self.render();
     self.event();
 };
 
@@ -13,23 +13,32 @@ FormCalcView.prototype.init = function () {
 
 FormCalcView.prototype.event = function () {
     var self = this;
-    jQuery(window).on('addValue', function () {
-        self.addValue();
+    jQuery(window).on('updateForm', function () {
+        self.render();
     });
-    jQuery(window).on('removeValue', function () {
-        self.removeValue();
+    jQuery(window).on('editField', function () {
+        self.makeActiveItemEditable();
     });
 };
 
 /* Methods */
 
-FormCalcView.prototype.addTemplate = function () {
-    var self = this;
-    jQuery('.js-calcForm').append(self.getItemTemplate());
-    jQuery(window).trigger('afterClickAdd');
+FormCalcView.prototype.getItemTemplate = function (value) {
+    return '<li class="calc__item inactive">' +
+        '<div class="calc__container">' +
+        '<label>' +
+        '<span class="calc__value">' +
+        value +
+        '</span>' +
+        '<input type="number" class="calc__input js-fieldValue">' +
+        '<button class="button button_save js-buttonSave">Сохранить</button>' +
+        '<a href="#" class="delete js-buttonDelete">Удалить</a>' +
+        '</label>' +
+        '</div>' +
+        '</li>';
 };
 
-FormCalcView.prototype.getItemTemplate = function () {
+FormCalcView.prototype.getItemTemplateActive = function () {
     return '<li class="calc__item active">' +
         '<div class="calc__container">' +
         '<label>' +
@@ -42,45 +51,39 @@ FormCalcView.prototype.getItemTemplate = function () {
         '</li>';
 };
 
-FormCalcView.prototype.getItemTemplateNew = function () {
-    return '<li class="calc__item inactive">' +
-        '<div class="calc__container">' +
-        '<label>' +
-        '<span class="calc__value"></span>' +
-        '<input type="number" class="calc__input js-fieldValue">' +
-        '<button class="button button_save js-buttonSave">Сохранить</button>' +
-        '<a href="#" class="delete js-buttonDelete">Удалить</a>' +
-        '</label>' +
-        '</div>' +
-        '</li>';
-};
-
-FormCalcView.prototype.addValue = function () {
+FormCalcView.prototype.addNewTemplateActive = function () {
     var self = this;
-    self.makeActiveItemUnEditable();
-    self.printValueField();
-    self.printValueTotal();
+    jQuery('.js-calcForm').append(self.getItemTemplateActive());
+    jQuery(window).trigger('newFieldAdded');
 };
 
-FormCalcView.prototype.removeValue = function () {
-    jQuery('.js-calcForm').append(self.getItemTemplate());
-};
-
-FormCalcView.prototype.makeActiveItemUnEditable = function () {
-    jQuery('.calc__item').addClass('inactive').removeClass('active');
-};
-
-FormCalcView.prototype.printValueField = function () {
+FormCalcView.prototype.render = function () {
+    var self = this;
     var arr = this.model.sum;
-    for ( var key in arr ) {
-        var parent = jQuery('.calc__value').closest('.calc__item').eq(key);
-        parent.find('.calc__value').empty().append(arr[key]);
+    var form = jQuery('.js-calcForm');
+
+    form.empty();
+    for (var i = 0; arr.length > i; i++) {
+        form.append(self.getItemTemplate(arr[i]));
     }
+    self.printValueTotal();
 };
 
 FormCalcView.prototype.printValueTotal = function () {
     jQuery('.js-calc__amount').empty().append(this.model.calcTotal())
 };
+
+FormCalcView.prototype.makeActiveItemEditable = function () {
+    jQuery('.calc__item').addClass('active').removeClass('inactive');
+};
+
+// FormCalcView.prototype.printValueField = function () {
+//     var arr = this.model.sum;
+//     for (var i = 0; arr.length > i; i++) {
+//         var parent = jQuery('.calc__value').closest('.calc__item').eq(i);
+//         parent.find('.calc__value').empty().append(arr[i]);
+//     }
+// };
 
 
 //

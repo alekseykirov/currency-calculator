@@ -16,7 +16,7 @@ FormCalcCntl.prototype.init = function () {
 FormCalcCntl.prototype.events = function () {
     var self = this;
     self.bindClickAddBtn();
-    jQuery(window).on('afterClickAdd', function() {
+    jQuery(window).on('newFieldAdded', function() {
         self.bindClickSaveBtn();
         self.bindClickDeleteBtn();
         self.bindClickField();
@@ -25,7 +25,7 @@ FormCalcCntl.prototype.events = function () {
 
 FormCalcCntl.prototype.bindClickAddBtn = function () {
     jQuery('.js-buttonAdd').on('click', function () {
-        window.formCalcView.addTemplate();
+        window.formCalcView.addNewTemplateActive();
     })
 };
 
