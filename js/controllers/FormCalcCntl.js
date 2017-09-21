@@ -11,16 +11,15 @@ FormCalcCntl.prototype.init = function () {
     self.events();
 };
 
+
 /* Events */
 
 FormCalcCntl.prototype.events = function () {
     var self = this;
     self.bindClickAddBtn();
-    jQuery(window).on('newFieldAdded', function() {
-        self.bindClickSaveBtn();
-        self.bindClickDeleteBtn();
-        self.bindClickField();
-    });
+    self.bindClickDeleteBtn();
+    self.bindClickSaveBtn();
+    self.bindClickField();
 };
 
 FormCalcCntl.prototype.bindClickAddBtn = function () {
@@ -31,18 +30,19 @@ FormCalcCntl.prototype.bindClickAddBtn = function () {
 
 FormCalcCntl.prototype.bindClickSaveBtn = function () {
     jQuery('.js-calcForm').on('click', '.js-buttonSave', function () {
-        window.formCalcModel.addValue( jQuery(this).closest('.calc__item').index(), jQuery(this).siblings('.js-fieldValue').val() );
+        window.formCalcModel.addValue(jQuery(this).closest('.calc__item').index(), jQuery(this).siblings('.js-fieldValue').val());
     });
 };
 
 FormCalcCntl.prototype.bindClickDeleteBtn = function () {
     jQuery('.js-calcForm').on('click', '.js-buttonDelete', function () {
-        window.formCalcModel.removeValue( jQuery(this).closest('.calc__item').index() );
+        window.formCalcModel.removeValue(jQuery(this).closest('.calc__item').index());
     });
 };
 
 FormCalcCntl.prototype.bindClickField = function () {
-    jQuery('.js-calcForm').on('click', '.js-fieldValue', function () {
-        window.formCalcModel.editValue( jQuery(this).closest('.calc__item').index() );
+    jQuery('.js-calcForm').on('click', '.js-titleValue', function () {
+        window.formCalcModel.editValue(jQuery(this).closest('.calc__item').index());
+        window.formCalcView.makeActiveItemEditable(jQuery(this).closest('.calc__item').index());
     });
 };
