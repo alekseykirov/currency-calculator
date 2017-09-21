@@ -1,6 +1,5 @@
 var FormCalcModel = function () {
     this.sum = [];
-    // this.errors = [];
 };
 
 FormCalcModel.prototype.addValue = function (index, value) {

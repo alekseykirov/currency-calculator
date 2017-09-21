@@ -55,7 +55,13 @@ FormCalcView.prototype.getItemTemplateActive = function () {
 
 FormCalcView.prototype.addNewTemplateActive = function () {
     var self = this;
-    jQuery('.js-calcForm').append(self.getItemTemplateActive());
+    var form = jQuery('.js-calcForm');
+
+    if (form.children().hasClass('active')) {
+        alert('Введите число в активное поле!')
+    } else {
+        form.append(self.getItemTemplateActive());
+    }
 };
 
 FormCalcView.prototype.render = function () {
